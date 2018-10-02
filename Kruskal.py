@@ -5,14 +5,10 @@
 # sort = if True, then [edges] is sorted before processing
 # This can be either 0-indexed or 1-indexed
 
-def Kruskal(n, edges, sort=True):
+__import__('sys').setrecursionlimit(123123)
+def MST(n, edges, sort=True):
     def union(x,y):
-        xr = find(x); yr = find(y)
-        if xr == yr: return
-        if rank[xr] < rank[yr]: parent[xr] = yr
-        elif rank[xr] > rank[yr]: parent[yr] = xr
-        else: parent[yr] = xr; rank[xr]+= 1
-    
+        parent[find(x)] = find(y)
     def find(x):
         if parent[x] != x: parent[x] = find(parent[x])
         return parent[x]
@@ -23,7 +19,7 @@ def Kruskal(n, edges, sort=True):
         c, a, b = e
         if find(a) != find(b): cost+= c; union(a, b); MST.append(e)
     if len(MST) < n-1: return float('inf'), []
-    return cost, MST
+    return cost#, MST
 
 from sys import stdin
 input = stdin.readline

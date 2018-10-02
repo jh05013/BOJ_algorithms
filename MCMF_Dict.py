@@ -29,7 +29,7 @@ def SPFA(G, C, T, d, s, t, F):
     P = [-1]*n; P[s] = -2; M = [-1]*n; M[s] = float('inf')
     dist = [float('inf')]*n; dist[s] = 0
     queued = [0]*n; queued[s] = 1; Q = deque(); Q.append(s)
-    while len(Q) > 0:
+    while Q:
         u = Q.popleft(); queued[u] = 0
         for v in G[u]:
             if C[(u,v)]-F[(u,v)] > 0 and dist[u] + d[(u,v)] < dist[v]:

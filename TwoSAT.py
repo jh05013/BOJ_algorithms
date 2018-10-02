@@ -3,6 +3,7 @@
 # cnf = CNF to evaluate
 # To make a clause, append (a, b) to denote a OR b
 
+__import__('sys').setrecursionlimit(123123)
 def SCC(adj):
     n = len(adj)
     idd = [False]*n; idx = [-1]*n

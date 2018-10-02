@@ -50,3 +50,14 @@ def contract(trie):
             trie[i].end|= grandson.end
             trie[i] = grandson
         contract(trie[i])
+
+
+
+#### Dict trie
+def makeTrie(words):
+    root = {}
+    for w in words:
+        cd = root
+        for l in w: cd = cd.setdefault(l, {})
+        cd[''] = ''
+    return root        

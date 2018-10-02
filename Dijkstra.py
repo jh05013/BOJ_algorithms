@@ -5,7 +5,7 @@
 # either 0-indexed or 1-indexed
 
 import heapq
-def Dijkstra(adj, source):
+def dijkstra(adj, source):
     n = len(adj)-1; dist = [float('inf')]*(n+1)
     dist[source] = 0; PQ = [(0, source)]
     while PQ:

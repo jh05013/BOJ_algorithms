@@ -1,9 +1,3 @@
-# Dinic algorithm but with very sparse graphs
-# adj = list of adjacent nodes, must be made bidirectional
-# C = capacity dict
-# s = index of source
-# t = index of sink
-
 from collections import deque, defaultdict
 def Dinic(G, C, s, t):
     def send(u, limit):

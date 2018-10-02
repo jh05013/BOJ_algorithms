@@ -7,8 +7,7 @@
 # min vertex cover = max matching (Konig theorem)
 # max indset = |V| - max matching
 
-from sys import setrecursionlimit as SRL
-SRL(15000)
+__import__('sys').setrecursionlimit(123123)
 from collections import deque
 def BFS(ssize, tsize, adj, pairu, pairv, dist):
     Q = deque()

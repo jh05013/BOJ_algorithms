@@ -2,6 +2,9 @@
 # n = width of histogram
 # h = height list
 
+# Largest 1-rectangle in matrix, in O(nm)
+# M = 0-1 matrix
+
 def LRIH(h):
     n = len(h); h.append(0)
     stack = []; ans = 0; i = 0
@@ -12,4 +15,13 @@ def LRIH(h):
         left = i-stack[-1]-1 if stack else i
         ans = max(ans, h[top]*left)
     h.pop()
+    return ans
+
+def LRIM(M):
+    row = M[0][:]
+    ans = LRIH(row)
+    for i in range(1, len(M)):
+        for j in range(len(row)):
+            row[j] = 0 if M[i][j] == 0 else row[j]+1
+        ans = max(ans, LRIH(row))
     return ans

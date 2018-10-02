@@ -31,6 +31,20 @@ class Fenwick:
     def intersum(self, i, j):
         return self.getsum(j) - self.getsum(i-1)
 
+class FenwickRUPQ:
+    def __init__(self, size):
+        self.arr = [0]*(size+1)
+    
+    def update(self, i, j, val):
+        while i < len(self.arr): self.arr[i] += val; i |= i+1
+        j+= 1
+        while j < len(self.arr): self.arr[j] -= val; j |= j+1
+    
+    def get(self, i):
+        res = 0
+        while i >= 0: res+= self.arr[i]; i = (i&(i+1))-1
+        return res
+
 
 
 class RangeFenwick:
