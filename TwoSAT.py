@@ -3,7 +3,6 @@
 # cnf = CNF to evaluate
 # To make a clause, append (a, b) to denote a OR b
 
-__import__('sys').setrecursionlimit(123123)
 def SCC(adj):
     n = len(adj)
     idd = [False]*n; idx = [-1]*n
@@ -29,17 +28,16 @@ def SCC(adj):
 
 def TwoSAT(n, cnf):
     adj = [[] for i in range(2*n+1)]
-    for a, b in cnf: adj[-a].append(b); adj[-b].append(a)
-    scc = list(SCC(adj))
-    sdx = [-1]*(2*n+1)
+    for i in range(0, len(cnf), 2):
+        a, b = cnf[i], cnf[i+1]
+        adj[-a].append(b); adj[-b].append(a)
+    scc = list(SCC(adj)); sdx = [-1]*(2*n+1)
     for i in range(len(scc)):
         for v in scc[i]: sdx[v] = i
-    for i in range(1, n+1):
-        if sdx[i] == sdx[-i]: return False
-    return True
+    return all(sdx[i] != sdx[-i] for i in range(1, n+1))
 
 n, m = map(int,input().split())
 cnf = []
 for i in range(m):
     a, b = map(int,input().split())
-    cnf.append((a,b))
+    cnf.extend([a, b])

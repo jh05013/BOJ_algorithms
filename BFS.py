@@ -8,3 +8,4 @@ def bfs(adj, v):
             if dist[q] != -1: continue
             dist[q] = dist[p] + 1; Q.append(q)
     return dist
+

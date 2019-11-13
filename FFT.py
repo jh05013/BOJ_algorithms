@@ -2,18 +2,18 @@
 # Degree must be 2^k; if not, append enough 0
 # di = 0 for forwards, 1 for backwards
 
-from cmath import exp, pi
-def Rev(x):
-    r = 0
-    for i in range(SZ): r = r<<1|x&1; x>>= 1
-    return r
-
 def ex0(X, Y):
     SZ = 0; N = 1; LEN = len(X)+len(Y)-1
     while N < LEN: N<<= 1; SZ+= 1
     X.extend([0]*(N-len(X)))
     Y.extend([0]*(N-len(Y)))
     return SZ, N
+
+from cmath import exp, pi
+def Rev(x):
+    r = 0
+    for i in range(SZ): r = r<<1|x&1; x>>= 1
+    return r
 
 def FFT(X, di):
     for i in range(N):

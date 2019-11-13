@@ -27,6 +27,18 @@ def KMP(s, w, T = None):
         else: m+= 1; i = 0
     return -1
 
+####################
+
+def partialmatch(w):
+    T = [-1]*(len(w)+1); T[1] = 0
+    if len(w) == 1: return T
+    pos = 2; cnd = 0
+    while pos < len(w)+1:
+        if w[pos-1] == w[cnd]: T[pos]=cnd+1; cnd+= 1; pos+= 1
+        elif cnd > 0: cnd = T[cnd]
+        else: T[pos] = 0; pos+= 1
+    return T
+
 def KMP(s, w, T = None):
     # find all w in s
     if not T: T = partialmatch(w)

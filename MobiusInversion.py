@@ -29,3 +29,40 @@ for d in range(1, N+1):
     ###### Calculate mc here! ######
     tot+= f[d] * mc
 print(tot)
+
+
+
+############################# Dirichlet things
+
+N = 100000 # Upper bound of numbers
+prime = list(range(N+1)); prime[0] = 0; prime[1] = 0
+mu = [1]*(N+1); mu[0] = -2; mu[1] = 1
+phi = list(range(N+1))
+for p in range(2, N+1):
+    if not prime[p]: continue
+    square = 1
+    for q in range(p, N+1, p):
+        if p != q: prime[q] = 0
+        if square == p: mu[q] = 0; square = 1
+        else: mu[q]*= -1; square+= 1
+        phi[q] = phi[q]*(p-1)//p
+
+MOD = 10**9+7
+F = [0,1]
+for i in range(100000): F.append((F[-1]+F[-2])%MOD)
+
+def convolute(f, g):
+    ans = [0]
+    for n in range(1,100):
+        A = 0
+        for d in range(1, n+1):
+            if n%d==0: A+= f(d) * g(n//d)
+        ans.append(A%MOD)
+    return ans
+
+I = lambda x: 1
+MU = lambda x: mu[x]
+ID = lambda x: x
+IDA = lambda n: (lambda x: x**n)
+E = lambda x: int(x == 1)
+PHI = lambda x: phi[x]

@@ -1,36 +1,11 @@
-# Simple primality check
-
-def isprime(n):
-    if n <= 1: return False
-    for p in range(2, n+1):
-        if p*p > n: return True
-        if n%p == 0: return False
-    return True
-
-# Prime sieve
-
-def primesieve(n):
-    s = list(range(n+1)); s[1] = 0
-    for i in range(2, int(n**.5)+2):
-        if not s[i]: continue
-        for j in range(i*i, n+1, i): s[j] = 0
-    return s
-
-# Prime sieve, no function
-
-s = list(range(n+1)); s[1] = 0
-for i in range(2, int(n**.5)+2):
-    if not s[i]: continue
-    for j in range(i*i, n+1, i): s[j] = 0
+LIM = 1000100
+sieve = list(range(LIM)); sieve[1] = 0
+for i in range(2, int(LIM**.5)+1):
+    if not sieve[i]: continue
+    for j in range(2*i, LIM, i): sieve[j] = 0
+sieve = list(filter(None, sieve))
 
 # Meissel-Lehmer algorithm
-
-LIM = 10000
-sieve = list(range(LIM+1)); sieve[1] = 0
-for i in range(2, int(LIM**.5)+2):
-    if not sieve[i]: continue
-    for j in range(i*i, LIM+1, i): sieve[j] = 0
-
 from bisect import bisect
 phicache = {}
 def PHI(x, a):

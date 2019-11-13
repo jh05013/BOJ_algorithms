@@ -6,7 +6,7 @@ def hungarian(mat):
     n = len(mat); m = len(mat[0])
     u = Q(n); v=Q(m); p=Q(m); way=Q(m)
     for i in range(1, n+1):
-        p[0] = i; j0 = 0; minv = Q(m, float('inf')); used = Q(m, False);
+        p[0] = i; j0 = 0; minv = Q(m, float('inf')); used = Q(m, False)
         while p[j0]:
             used[j0] = True; i0 = p[j0]; delta = float('inf'); j1 = None
             for j in range(1, m+1):

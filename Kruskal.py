@@ -7,14 +7,14 @@
 
 __import__('sys').setrecursionlimit(123123)
 def MST(n, edges, sort=True):
-    def union(x,y):
-        parent[find(x)] = find(y)
+    parent = list(range(n+1))
+    def union(x, y): parent[find(x)] = find(y)
     def find(x):
         if parent[x] != x: parent[x] = find(parent[x])
         return parent[x]
     
     if sort: edges.sort()
-    cost = 0; rank = [0]*(n+1); parent = list(range(n+1)); MST = []
+    cost = 0; MST = []
     for e in edges:
         c, a, b = e
         if find(a) != find(b): cost+= c; union(a, b); MST.append(e)

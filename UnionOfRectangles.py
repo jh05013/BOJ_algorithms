@@ -1,25 +1,25 @@
 class SegTree:
-    def __init__(self, n, width):
-        size = 1
-        while size < n: size<<= 1
-        self.arr = [0]*(size*2); self.size = size
-        self.cover = [0]*(size*2); self.width = [0]*(size*2)
-        for i in range(n): self.width[size+i] = width[i]
-        for i in range(size-1, 0, -1): self.width[i] = self.width[2*i] + self.width[2*i+1]
+    def __init__(_, n, width):
+        s = 1
+        while s < n: s<<= 1
+        _.arr = [0]*(s*2); _.s = s
+        _.cover = [0]*(s*2); _.width = [0]*(s*2)
+        for i in range(n): _.width[s+i] = width[i]
+        for i in range(s-1, 0, -1): _.width[i] = _.width[2*i] + _.width[2*i+1]
     
-    def update(self, l, r, delta):
-        self._internal(l, r, 1, 0, self.size-1, delta)
+    def update(_, l, r, delta):
+        _._internal(l, r, 1, 0, _.s-1, delta)
     
-    def _internal(self, l, r, node, nl, nr, delta):
+    def _internal(_, l, r, node, nl, nr, delta):
         if r < nl or l > nr: return
-        if l <= nl and nr <= r: self.arr[node]+= delta
+        if l <= nl and nr <= r: _.arr[node]+= delta
         else:
             mid = (nl+nr)//2
-            self._internal(l, r, node*2, nl, mid, delta)
-            self._internal(l, r, node*2+1, mid+1, nr, delta)
-        if self.arr[node]: self.cover[node] = self.width[node]
-        elif node >= self.size: self.cover[node] = 0
-        else: self.cover[node] = self.cover[2*node] + self.cover[2*node+1]
+            _._internal(l, r, node*2, nl, mid, delta)
+            _._internal(l, r, node*2+1, mid+1, nr, delta)
+        if _.arr[node]: _.cover[node] = _.width[node]
+        elif node >= _.s: _.cover[node] = 0
+        else: _.cover[node] = _.cover[2*node] + _.cover[2*node+1]
     
 from sys import stdin
 input = stdin.readline

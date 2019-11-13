@@ -23,6 +23,27 @@ def gauss(A):
         for k in range(i-1, -1, -1): A[k][n] -= A[k][i] * x[i]
     return x
 
+# Fraction version
+
+from fractions import Fraction as F
+def gauss(A):
+    n = len(A)
+    for i in range(n):
+        maxEl = abs(A[i][i]); maxRow = i
+        for k in range(i+1, n):
+            if abs(A[k][i]) > maxEl: maxEl = abs(A[k][i]); maxRow = k
+        for k in range(i, n+1): A[maxRow][k], A[i][k] = A[i][k], A[maxRow][k]
+        for k in range(i+1, n):
+            c = F(-A[k][i], A[i][i])
+            for j in range(i, n+1):
+                if i == j: A[k][j] = F(0, 1)
+                else: A[k][j]+= c * A[i][j]
+    x = [0]*n
+    for i in range(n-1, -1, -1):
+        x[i] = F(A[i][n], A[i][i])
+        for k in range(i-1, -1, -1): A[k][n] -= A[k][i] * x[i]
+    return x
+
 # Determinant
 # A = matrix
 

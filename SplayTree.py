@@ -1,107 +1,62 @@
-# Splay tree
-# This is 0-indexed
+# Make sure to include sentinel nodes!
+# As such, this is 1-indexed.
 
 class Node:
-    def __init__(self, key):
-        self.key = key
-        self.cnt = 1
-        self.l = self.r = self.p = None
-    
-    def update(self):
-        self.cnt = 1
-        if self.l: self.cnt+= self.l.cnt
-        if self.r: self.cnt+= self.r.cnt
-    
-    def __repr__(self):
-        a = str(self.key)
-        b = repr(self.l) if self.l else "."
-        c = repr(self.r) if self.r else "."
-        return "<"+a+" / "+b+" "+c+">"
+    def __init__(_, cnt):
+        _.l = _.r = _.p = None
+        _.cnt = cnt
+        _.lazy = False
+        # include additional properties if you need
 
-class Splay:
-    def __init__(self):
-        self.root = None
+class Splaytree:
+    def __init__(_, n):
+        x = _.root = Node(n)
+        for i in range(1, n):
+            x.r = Node(n-1)
+            x.r.p = x; x = x.r
     
-    def __repr__(self):
-        return repr(self.root)
-
-    def rotate(self, x):
-        p = x.p; b = None
+    def update(_, x):
+        x.cnt = 1
+        # initialize additional features here
+        if x.l:
+            x.cnt+= x.l.cnt
+            # update additional features here
+        if x.r:
+            x.cnt+= x.r.cnt
+            # update additional features here
+    
+    def rotate(_, x):
+        p = x.p
         if x == p.l: p.l = b = x.r; x.r = p
         else: p.r = b = x.l; x.l = p
         x.p = p.p; p.p = x
         if b: b.p = p
-        if not x.p: self.root = x
-        elif p == x.p.l: x.p.l = x
-        else: x.p.r = x
-        p.update(); x.update()
+        if x.p:
+            if x.p.l == p: x.p.l = x
+            else: x.p.r = x
+        else: _.root = x
+        _.update(p); _.update(x)
     
-    def splay(self, x):
+    def splay(_, x): # x becomes the root
         while x.p:
             p = x.p; g = p.p
-            if g: self.rotate(p if (x==p.l) == (p==g.l) else x)
-            self.rotate(x)
+            if g:
+                if (x == p.l) == (p == g.l): _.rotate(p)
+                else: _.rotate(x)
+            _.rotate(x)
     
-    def insert(self, key):
-        p = self.root; pp = None
-        if not p: self.root = Node(key); return
-        while 1:
-            if key == p.key: return
-            if key < p.key:
-                if not p.l: pp = p.l; break
-                p = p.l; continue
-            if not p.r: pp = p.r; break
-            p = p.r
-        pp = Node(key); pp.p = p
-        if p.key < key: p.r = pp
-        else: p.l = pp
-        self.splay(pp)
-    
-    def delete(self, key):
-        assert self.find(key)
-        p = self.root
-        if p.l:
-            if p.r:
-                self.root = x = p.l; x.p = None
-                while x.r: x = x.r
-                x.r = p.r; p.r.p = x; self.splay(x); return
-            self.root = x = p.l; x.p = None; return
-        if p.r: self.root = x = p.r; x.p = None; return
-        self.root = None    
-    
-    def find(self, key):
-        p = self.root
-        if not p: return False
-        while p:
-            if key == p.key: break
-            if key < p.key:
-                if not p.l: break
-                p = p.l; continue
-            if not p.r: break
-            p = p.r
-        self.splay(p); return p.key == key
-    
-    def findkth(self, k):
-        x = self.root
+    def kth(_, k): # kth node becomes the root
+        x = _.root
         while 1:
             while x.l and x.l.cnt > k: x = x.l
             if x.l: k-= x.l.cnt
             if not k: break
             k-= 1; x = x.r
-        self.splay(x)
+        _.splay(x)
     
-    def interval(self, l, r): # self.root.r.l becomes the interval [l,r]
-        self.findkth(l-1)
-        x = self.root; self.root = x.r; self.root.p = None
-        self.findkth(r-l+1)
-        x.r = self.root; self.root.p = x; self.root = x    
-
-t = Splay()
-from random import shuffle
-L = list(range(1000))
-shuffle(L)
-for i in L: t.insert(i); assert t.root.key == i
-shuffle(L)
-for i in L: assert t.find(i); assert t.root.key == i
-shuffle(L)
-for i in L: t.findkth(i); assert t.root.key == i
+    def interval(_, l, r): # root.r.l becomes [l, r]
+        _.kth(l-1)
+        x = _.root
+        _.root = x.r; _.root.p = None
+        _.kth(r-l+1)
+        x.r= _.root; _.root.p = x; _.root = x

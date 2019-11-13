@@ -12,13 +12,15 @@
 # p = list of stones
 # nimber = function to compute nimber
 
-def nimbergen(move, n):
-    mex = [0]*(n+1)
-    for i in range(1, n+1):
-        poss = {mex[p] for p in move(i)}
-        for j in range(i+1):
-            if j not in poss: mex[i] = j; break
-    return mex
+mex = [-1] * 10000
+def calc_nim(x):
+    move = set()
+    for y in something:
+        move.add(mex[y])
+    assert -1 not in move
+    for y in range(10**9):
+        if y not in move: mex[x] = y; return
+for i in range(10000): calc_nim(i)
 
 def nimgame(p, nimber):
     xored = 0
