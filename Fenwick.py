@@ -3,22 +3,20 @@
 
 # The most basic form
 class Fenwick:
-    def __init__(_, size):
-        _.arr = [0]*size
-    
+    def __init__(_, size): _.arr = [0]*size
     def add(_, i, val):
         while i < len(_.arr): _.arr[i] += val; i |= i+1
-    
     def getsum(_, i):
         res = 0
         while i >= 0: res+= _.arr[i]; i = (i&(i+1))-1
         return res
+    def intersum(_, i, j): return _.getsum(j) - _.getsum(i-1)
 
 # Supports initialization and intersum
 class Fenwick:
     def __init__(_, size):
         if type(size) == int: _.arr = [0]*size; return
-        _.arr = size
+        _.arr = size[:]
         for i in range(len(_.arr)):
             if i|(i+1) < len(_.arr): _.arr[i|(i+1)]+= _.arr[i]
     

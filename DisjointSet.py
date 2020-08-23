@@ -1,56 +1,69 @@
 # Disjoint set
 # This can be either 0-indexed or 1-indexed
 
+
+
+# Minimalism
+__import__('sys').setrecursionlimit(123123)
+class DisjointSet:
+    def __init__(_, n): _.par = list(range(n+1))
+    def union(_, x, y): _.par[_.find(x)] = _.find(y)
+    def find(_, x):
+        if _.par[x] != x: _.par[x] = _.find(_.par[x])
+        return _.par[x]
+    
+    
+
 # Disjoint set without union by rank
 __import__('sys').setrecursionlimit(123123)
 class DisjointSet:
-    def __init__(self, n):
-        self.par = list(range(n+1))
+    def __init__(_, n):
+        _.par = list(range(n+1))
 
-    def union(self, x, y): # yr becomes parent
-        xr = self.find(x); yr = self.find(y)
-        self.par[xr] = yr
+    def union(_, x, y): # yr becomes parent
+        xr = _.find(x); yr = _.find(y)
+        _.par[xr] = yr
         
-    def find(self, x):
-        if self.par[x] != x: self.par[x] = self.find(self.par[x])
-        return self.par[x]
+    def find(_, x):
+        if _.par[x] != x: _.par[x] = _.find(_.par[x])
+        return _.par[x]
 
 
 
 # Disjoint set with sizes
 __import__('sys').setrecursionlimit(123123)
 class DisjointSet:
-    def __init__(self, n):
-        self.par = list(range(n+1))
-        self.size = [1]*(n+1)
+    def __init__(_, n):
+        _.par = list(range(n+1))
+        _.size = [1]*(n+1)
 
-    def union(self, x, y): # yr becomes parent
-        xr = self.find(x); yr = self.find(y)
+    def union(_, x, y): # yr becomes parent
+        xr = _.find(x); yr = _.find(y)
         if xr == yr: return
-        self.par[xr] = yr
-        self.size[yr]+= self.size[xr]
+        _.par[xr] = yr
+        _.size[yr]+= _.size[xr]
         
-    def find(self, x):
-        if self.par[x] != x: self.par[x] = self.find(self.par[x])
-        return self.par[x]
+    def find(_, x):
+        if _.par[x] != x: _.par[x] = _.find(_.par[x])
+        return _.par[x]
 
 
 
 # Disjoint set with union by rank
 class DisjointSet:
-    def __init__(self, n):
-        self.rank = [0]*(n+1)
-        self.par = list(range(n+1))
+    def __init__(_, n):
+        _.rank = [0]*(n+1)
+        _.par = list(range(n+1))
 
-    def union(self, x, y):
-        xr = self.find(x); yr = self.find(y)
+    def union(_, x, y):
+        xr = _.find(x); yr = _.find(y)
         if xr == yr: return
-        if self.rank[xr] < self.rank[yr]: self.par[xr] = yr
-        elif self.rank[xr] > self.rank[yr]: self.par[yr] = xr
-        else: self.par[yr] = xr; self.rank[xr]+= 1
+        if _.rank[xr] < _.rank[yr]: _.par[xr] = yr
+        elif _.rank[xr] > _.rank[yr]: _.par[yr] = xr
+        else: _.par[yr] = xr; _.rank[xr]+= 1
         
-    def find(self, x):
-        if self.par[x] != x: self.par[x] = self.find(self.par[x])
-        return self.par[x]
+    def find(_, x):
+        if _.par[x] != x: _.par[x] = _.find(_.par[x])
+        return _.par[x]
 
 

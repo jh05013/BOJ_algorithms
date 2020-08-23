@@ -3,6 +3,12 @@
 # root = root
 
 # unweighted, root at 1
+adj = [[] for i in range(n+1)]
+for i in range(n-1):
+    a, b = MIS()
+    adj[a].append(b)
+    adj[b].append(a)
+
 stack = [1]
 vis = [False]*(n+1); vis[1] = True
 while stack:

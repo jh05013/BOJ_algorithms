@@ -38,3 +38,11 @@ class LCA:
 
     def treedist(_, a, b):
         return _.depth[a] + _.depth[b] - 2*_.depth[_.LCA(a, b)]  
+
+n = int(input())
+adj = [[] for i in range(n+1)]
+for i in range(n-1):
+    a, b = MIS()
+    adj[a].append(b)
+    adj[b].append(a)
+    

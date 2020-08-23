@@ -18,10 +18,11 @@ def primesieve(n):
 
 # Prime sieve, no function
 
-s = list(range(n+1)); s[1] = 0
+sv = list(range(n+1)); sv[1] = 0
 for i in range(2, int(n**.5)+2):
-    if not s[i]: continue
-    for j in range(i*i, n+1, i): s[j] = 0
+    if not sv[i]: continue
+    for j in range(i*i, n+1, i): sv[j] = 0
+primes = list(filter(None, sv))
 
 # Meissel-Lehmer algorithm
 

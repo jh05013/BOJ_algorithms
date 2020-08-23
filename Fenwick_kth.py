@@ -19,7 +19,7 @@ class Fenwick:
         l = 0; r = len(_.arr)
         for i in range(_.lsz+1):
             mid = (l+r) // 2
-            val = F.arr[mid-1]
+            val = _.arr[mid-1]
             if val >= k: r = mid
             else: l = mid; k-= val
         return l

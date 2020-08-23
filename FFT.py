@@ -34,8 +34,8 @@ def convolution(X, Y):
     for i in range(N): X[i]*= Y[i]
     FFT(X, 1)
 
-X = [1,1,1,1]
-Y = [1,1,1,1,1]
+X = [0,1]
+Y = [0,1]
 SZ, N = ex0(X, Y)
 convolution(X, Y)
 print(X)

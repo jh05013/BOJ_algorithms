@@ -1,1 +1,0 @@
-print("ONTAK 2010")

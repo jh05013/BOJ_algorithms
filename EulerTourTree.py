@@ -13,7 +13,7 @@ class Fenwick:
         for i in range(len(self.arr)):
             if i|(i+1) < len(self.arr): self.arr[i|(i+1)]+= self.arr[i]
     
-    def update(self, i, val):
+    def add(self, i, val):
         while i < len(self.arr): self.arr[i] += val; i |= i+1
     
     def getsum(self, i):
@@ -24,8 +24,8 @@ class Fenwick:
     def intersum(self, i, j):
         return self.getsum(j) - self.getsum(i-1)
 
-def eulertour(tadj):
-    res = [1]; stack = [1]; iteradj = [iter(a) for a in tadj]
+def eulertour(tadj, root):
+    res = [root]; stack = [root]; iteradj = [iter(a) for a in tadj]
     while stack:
         try: p = next(iteradj[stack[-1]]); res.append(p); stack.append(p)
         except StopIteration: res.append(stack.pop())

@@ -37,7 +37,7 @@ def Dinic(G, C, s, t):
             for v in G[u]:
                 if level[v] == -1 and C[(u,v)] > flow[(u,v)]:
                     level[v] = level[u]+1; Q.append(v)
-        if level[t] == -1: return tot, flow
+        if level[t] == -1: return tot#, flow
         tot+= send(s, sum(C[(s,v)] for v in G[s]))
 
 def addedge(i, j, cap):
