@@ -123,8 +123,7 @@ struct Splay{
 	Node* insert(int k, typename Node::scont_t v){
 		n++; splay_kth(k);
 		Snode *x = new Snode(v);
-		if(root->l) root->l->p = x;
-		x->l = root->l, x->r = NULL;
+		setpar(x, root->l, true);
 		setpar(root, x, true);
 		return splay(x);
 	}
@@ -137,7 +136,7 @@ struct Splay{
 			root = p->l, root->p = nullptr;
 			Node *cur = root->prop();
 			while (cur->r) cur = cur->r->prop();
-			cur->r = p->r, p->r->p = cur;
+			setpar(cur, p->r, false);
 			splay(cur);
 		}
 		delete p;
