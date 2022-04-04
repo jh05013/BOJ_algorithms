@@ -68,7 +68,6 @@ struct Snode{
 	}
 };
 
-// 1-indexed; has sentinel nodes on both ends
 template <typename Node>
 struct LinkCut{
 	int n;

@@ -1,4 +1,3 @@
-
 struct Snode{
 	typedef int scont_t; // element
 	typedef int snode_t;
@@ -65,7 +64,6 @@ struct Snode{
 	}
 };
 
-// 1-indexed; has sentinel nodes on both ends
 template <typename Node>
 struct Splay{
 	int n;
