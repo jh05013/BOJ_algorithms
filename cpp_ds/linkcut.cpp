@@ -1,17 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-void OJize(){cin.tie(NULL);ios_base::sync_with_stdio(false);}
-
-typedef long long ll;
-const int INF = 0x3f3f3f3f;
-const ll LINF = 0x3f3f3f3f3f3f3f3f;
-#define sz(X) (int)((X).size())
-#define entire(X) X.begin(),X.end()
-#define minpq1(T) priority_queue<T,vector<T>,greater<T>>
-#define minpq2(T,U) priority_queue<T,U,vector<T,U>,greater<T,U>>
-template <class T1, class T2>ostream&operator<<(ostream &os,pair<T1,T2>const&x){os<<'('<<x.first<<", "<<x.second<<')';return os;}
-template <class Ch, class Tr, class Container>basic_ostream<Ch,Tr>&operator<<(basic_ostream<Ch,Tr>&os,Container const&x){for(auto&y:x)os<<y<<" ";return os;}
-
 struct Snode{
 	typedef ll scont_t; // element
 	typedef ll snode_t;
@@ -222,25 +208,3 @@ struct LinkCut{
 	bool connected(Node *x, Node *y){return root(x) == root(y);}
 	bool connected(int x, int y){return connected(nodes[x], nodes[y]);}
 };
-
-int main(){OJize();
-	int n, Q; cin>>n>>Q;
-	vector<ll> arr(n);
-	for(int i=0; i<n; i++) cin>>arr[i];
-	LinkCut<Snode> LCT(arr);
-	for(int i=0; i<n-1; i++){
-		int x, y; cin>>x>>y;
-		LCT.connect(x, y);
-	}
-
-	while(Q--){
-		int qty,a,b; cin>>qty>>a>>b;
-		if(qty == 0){
-			LCT.disconnect(a, b);
-			cin>>a>>b, LCT.connect(a, b);
-			continue;
-		}
-		if(qty == 1) LCT.path_update(a, a, b);
-		else cout << LCT.path(a, b)->val << '\n';
-	}
-} 
