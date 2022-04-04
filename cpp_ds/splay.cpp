@@ -1,6 +1,7 @@
+
 struct Snode{
 	typedef int scont_t; // element
-	typedef int snode_t; // sum, L, R, ans
+	typedef int snode_t;
 	snode_t leaf_val(scont_t c){
 		return c;
 	}
@@ -9,20 +10,20 @@ struct Snode{
 		return a+b;
 	}
 
-	typedef bool slazy_t;
-	const slazy_t LID = false;
+	typedef int slazy_t;
+	const slazy_t LID = 0;
 	// apply a <- b
 	slazy_t combine_lazy(slazy_t a, slazy_t b){
-		return a^b;
+		return a+b;
 	}
-	void unlazy(){
-		if(lazy) swap(l, r);
+	void undoflip(){
+		;
 	}
 	////////////////////////////////////////////////////////////
 	Snode *l = nullptr, *r = nullptr, *p = nullptr;
-	scont_t content;
+	scont_t content; int no = 0;
 	snode_t val;
-	slazy_t lazy = LID;
+	slazy_t lazy = LID; bool doflip = false;
 	int cnt = 1;
 
 	Snode(scont_t c): content(c) {val = leaf_val(content);}
@@ -34,15 +35,22 @@ struct Snode{
 		if(r) r->prop(), val = combine(val, r->val), cnt += r->cnt;
 		return this;
 	}
-	Snode* prop(){
-		if(lazy == LID) return this;
-		if(l) l->lazy = combine_lazy(l->lazy, lazy);
-		if(r) r->lazy = combine_lazy(r->lazy, lazy);
-		unlazy(); lazy = LID;
-		return this;
-	}
 	void lazy_add(slazy_t x){
 		lazy = combine_lazy(lazy, x);
+	}
+	Snode* flip(){doflip = !doflip; return this;}
+	Snode* prop(){
+		if(doflip){
+			if(l) l->flip();
+			if(r) r->flip();
+			swap(l, r), undoflip(), doflip = false;
+		}
+		if(lazy != LID){
+			if(l) l->lazy_add(lazy);
+			if(r) r->lazy_add(lazy);
+			unlazy(), lazy = LID;
+		}
+		return this;
 	}
 
 	// helper funcs
@@ -57,6 +65,7 @@ struct Snode{
 	}
 };
 
+// 1-indexed; has sentinel nodes on both ends
 template <typename Node>
 struct Splay{
 	int n;
@@ -64,13 +73,14 @@ struct Splay{
 	vector<Node*> nodes;
 
 	Splay(vector<typename Node::scont_t> conts): n(sz(conts)){
-		nodes.push_back(root = new Node(0));
+		root = new Node(0);
 		for(int i=0; i<=n; i++){
 			Node *s = new Node(i<n ? conts[i] : 0);
-			setpar(nodes.back(), s, false);
+			setpar(i ? nodes.back() : root, s, false);
 			nodes.push_back(s);
 		}
-		for(int i=n+1; i>=0; i--) nodes[i]->refresh();
+		for(int i=n; i>=0; i--) nodes[i]->refresh();
+		root->refresh();
 	}
 
 	// DO NOT USE THESE IN CLIENT CODES!!!
@@ -81,6 +91,8 @@ struct Splay{
 	}
 	void rotate(Node *x){
 		Node *p = x->p, *q = p->is_root() ? nullptr : p->p;
+		if(q) q->prop();
+		p->prop(), x->prop();
 		bool xdir = (x == p->l);
 		if(q) setpar(q, x, (p == q->l));
 		else x->p = nullptr, root = x;
@@ -88,7 +100,7 @@ struct Splay{
 		p->refresh(), x->refresh();
 	}
 	
-	// splay methods. l, r are 0-indexed
+	// splay methods. k, l, r are 1-indexed
 	Node* splay(Node *x){
 		while(!x->is_root()){
 			Node *p = x->p, *q = p->is_root() ? nullptr : p->p;
@@ -98,7 +110,7 @@ struct Splay{
 		return root = x;
 	}
 	Node* splay_kth(int k){
-		assert(0 <= k && k <= n+1);
+		//assert(0 <= k && k <= n+1);
 		Node *x = root->prop();
 		while(1){
 			while(x->l && x->l->cnt > k+1) x = x->l->prop();
@@ -108,6 +120,9 @@ struct Splay{
 		}
 		return splay(x);
 	}
+	int node_index(Node *x){return splay(x)->l->cnt;}
+
+	// interval stuff
 	Node* interval(int l, int r){
 		// l to r goes to root->r->l
 		assert(0 <= l && l <= r && r < n);
@@ -118,12 +133,23 @@ struct Splay{
 		setpar(x, root, false), root = x;
 		return root->r->l->prop();
 	}
+	void interval_update(int l, int r, typename Node::slazy_t x){
+		interval(l, r)->lazy_add(x);
+	}
+	void interval_flip(int l, int r){interval(l, r)->flip();}
+	void interval_shift(int l, int r, int k){
+		int s = r-l+1; k = (k%s+s)%s;
+		if(k == 0) return;
+		interval_flip(l, r), interval_flip(l, l+s-k-1);
+		interval_flip(l+s-k, r);
+	}
 
 	// insert and delete
 	Node* insert(int k, typename Node::scont_t v){
 		n++; splay_kth(k);
 		Snode *x = new Snode(v);
-		setpar(x, root->l, true);
+		if(root->l) root->l->p = x;
+		x->l = root->l, x->r = NULL;
 		setpar(root, x, true);
 		return splay(x);
 	}
@@ -136,7 +162,7 @@ struct Splay{
 			root = p->l, root->p = nullptr;
 			Node *cur = root->prop();
 			while (cur->r) cur = cur->r->prop();
-			setpar(cur, p->r, false);
+			cur->r = p->r, p->r->p = cur;
 			splay(cur);
 		}
 		delete p;
