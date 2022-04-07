@@ -1,73 +1,3 @@
-struct Snode{
-	typedef ll scont_t; // element
-	typedef ll snode_t;
-	snode_t leaf_val(scont_t c){
-		return c;
-	}
-	// a left, b right
-	snode_t combine(snode_t a, snode_t b){
-		return a+b;
-	}
-
-	typedef ll slazy_t;
-	const slazy_t LID = 0;
-	// apply a <- b
-	slazy_t combine_lazy(slazy_t a, slazy_t b){
-		return a+b;
-	}
-	void unlazy(){
-		content+= lazy;
-		val+= cnt * lazy;
-	}
-	void undoflip(){
-		;
-	}
-	////////////////////////////////////////////////////////////
-	Snode *l = nullptr, *r = nullptr, *p = nullptr;
-	scont_t content; int no = 0;
-	snode_t val;
-	slazy_t lazy = LID; bool doflip = false;
-	int cnt = 1;
-
-	Snode(scont_t c): content(c) {val = leaf_val(content);}
-
-	// push, pull, and query
-	Snode* refresh(){
-		val = leaf_val(content), cnt = 1;
-		if(l) l->prop(), val = combine(l->val, val), cnt += l->cnt;
-		if(r) r->prop(), val = combine(val, r->val), cnt += r->cnt;
-		return this;
-	}
-	void lazy_add(slazy_t x){
-		lazy = combine_lazy(lazy, x);
-	}
-	Snode* flip(){doflip = !doflip; return this;}
-	Snode* prop(){
-		if(doflip){
-			if(l) l->flip();
-			if(r) r->flip();
-			swap(l, r), undoflip(), doflip = false;
-		}
-		if(lazy != LID){
-			if(l) l->lazy_add(lazy);
-			if(r) r->lazy_add(lazy);
-			unlazy(), lazy = LID;
-		}
-		return this;
-	}
-
-	// helper funcs
-	bool is_root(){return !p || (this != p->l && this != p->r);}
-	bool is_left(){
-		assert(!p || p->lazy == LID);
-		return p && p->l == this;
-	}
-	Snode *ch(bool left){
-		assert(lazy == LID);
-		return left? l : r;
-	}
-};
-
 template <typename Node>
 struct LinkCut{
 	int n;
@@ -83,6 +13,10 @@ struct LinkCut{
 		nodes.push_back(new Node(c));
 		nodes.back()->no = n++;
 		return nodes.back();
+	}
+	void input(int cnt){
+		int a, b;
+		while(cnt--) cin>>a>>b, connect(a, b);
 	}
 
 	// DO NOT USE THESE IN CLIENT CODES!!!
@@ -206,4 +140,74 @@ struct LinkCut{
 	// check whether x and y are in the same global tree
 	bool connected(Node *x, Node *y){return root(x) == root(y);}
 	bool connected(int x, int y){return connected(nodes[x], nodes[y]);}
+};
+
+struct Snode{
+	typedef ll scont_t; // element
+	typedef ll snode_t;
+	snode_t leaf_val(scont_t c){
+		return c;
+	}
+	// a left, b right
+	snode_t combine(snode_t a, snode_t b){
+		return a+b;
+	}
+
+	typedef ll slazy_t;
+	const slazy_t LID = -666; // MUST BE AN UNUSED VALUE
+	// apply a <- b
+	slazy_t combine_lazy(slazy_t a, slazy_t b){
+		return a+b;
+	}
+	void unlazy(){
+		content+= lazy;
+		val+= cnt * lazy;
+	}
+	void undoflip(){
+		;
+	}
+	////////////////////////////////////////////////////////////
+	Snode *l = nullptr, *r = nullptr, *p = nullptr;
+	scont_t content; int no = 0;
+	snode_t val;
+	slazy_t lazy = LID; bool doflip = false;
+	int cnt = 1;
+
+	Snode(scont_t c): content(c) {val = leaf_val(content);}
+
+	// push, pull, and query
+	Snode* refresh(){
+		val = leaf_val(content), cnt = 1;
+		if(l) l->prop(), val = combine(l->val, val), cnt += l->cnt;
+		if(r) r->prop(), val = combine(val, r->val), cnt += r->cnt;
+		return this;
+	}
+	void lazy_add(slazy_t x){
+		lazy = combine_lazy(lazy, x);
+	}
+	Snode* flip(){doflip = !doflip; return this;}
+	Snode* prop(){
+		if(doflip){
+			if(l) l->flip();
+			if(r) r->flip();
+			swap(l, r), undoflip(), doflip = false;
+		}
+		if(lazy != LID){
+			if(l) l->lazy_add(lazy);
+			if(r) r->lazy_add(lazy);
+			unlazy(), lazy = LID;
+		}
+		return this;
+	}
+
+	// helper funcs
+	bool is_root(){return !p || (this != p->l && this != p->r);}
+	bool is_left(){
+		assert(!p || p->lazy == LID);
+		return p && p->l == this;
+	}
+	Snode *ch(bool left){
+		assert(lazy == LID);
+		return left? l : r;
+	}
 };
