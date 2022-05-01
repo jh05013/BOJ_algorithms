@@ -78,7 +78,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp_ds/linkcut.cpp
 - [LC Dynamic Tree Vertex Set Path Composite](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite) connect, disconnect, path query
 - [DMOJ Dynamic Tree Test (Easy)](https://dmoj.ca/problem/ds5easy) reroot, connect, disconnect, path query, lca
 
-아래는 LC Dynamic Tree Vertex Set Path Composite에서의 사용 예시입니다. `Linear`는 [linear function](https://github.com/jh05013/BOJ_algorithms/wiki/linear-function-%28cpp%29), `modint`는 [modint](https://github.com/jh05013/BOJ_algorithms/wiki/modint-%28cpp%29)를 참조하세요.
+아래는 LC Dynamic Tree Vertex Set Path Composite에서의 사용 예시입니다. `Linear`는 [linear function](https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/_doc/math_linear_function.md), `modint`는 [modint](https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/_doc/math_modint.md)를 참조하세요.
 ```cpp
 struct Snode{
 	typedef Linear<modint> scont_t; // element

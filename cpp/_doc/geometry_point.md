@@ -1,3 +1,5 @@
+https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/geometry/point.cpp
+
 2차원 점 `Pnt<T>`를 정의합니다.
 
 # 필드
@@ -41,7 +43,7 @@
 - TODO theta rotation
 
 # 테스트 문제
-[[BOJ 11758 CCW]]
+[BOJ 11758 CCW](https://acmicpc.net/problem/11758)
 ```cpp
 int main(){
 	Pnt<ll> a, b, c; cin>>a>>b>>c;
