@@ -21,9 +21,9 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/data_structure/fenwick
 - `kth(int k)`는, **모든 content[i]가 0 이상**이라는 가정 하에, `content[0] + ... + content[i] >= k`인 최소의 i입니다. 그러한 i가 없으면 RTE입니다.
 
 # 테스트 문제
-- [BOJ 2042 구간 합 구하기] change, sum
-- [LC Point Add Range Sum] add, sum
-- [BOJ 12899 데이터 구조] add, kth
+- [BOJ 2042 구간 합 구하기](https://acmicpc.net/problem/2042) change, sum
+- [LC Point Add Range Sum](https://judge.yosupo.jp/problem/point_add_range_sum) add, sum
+- [BOJ 12899 데이터 구조](https://acmicpc.net/problem/12899) add, kth
 
 다음은 LC Point Add Range Sum에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/88011)
 ```cpp
