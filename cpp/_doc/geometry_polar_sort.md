@@ -5,7 +5,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/geometry/polar_sort.cp
 # Polar sort
 `void polar_sort(vector<Pnt<T>> &P, Pnt<T> c)`
 - 인자
-  - `P`는 정렬할 점의 vector입니다. 길이는 n입니다. c와 같은 점이 존재하면 assertion fail입니다.
+  - `P`는 정렬할 점의 vector입니다. 길이는 n입니다. c와 같은 점이 존재하면 RTE입니다.
   - `c`는 정렬의 기준이 되는 점입니다.
 - 동작
   - `P`의 점들을 `c`를 기준으로 반시계 방향으로 정렬합니다.
@@ -18,7 +18,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/geometry/polar_sort.cp
 
 `vector<int> polar_sorted_halfplanes(vector<Pnt<T>> &P, const Pnt<T> &c)`
 - 인자
-  - `P`는 정렬할 점의 vector입니다. 길이는 n입니다. c와 같은 점이 존재하면 assertion fail입니다.
+  - `P`는 정렬할 점의 vector입니다. 길이는 n입니다. c와 같은 점이 존재하면 RTE입니다.
   - `c`는 정렬의 기준이 되는 점입니다.
   - P는 `c`를 기준으로 반시계 방향으로 정렬되어 있어야 합니다. 그렇지 않으면 UB입니다.
 - 동작

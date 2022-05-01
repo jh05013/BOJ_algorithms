@@ -13,6 +13,7 @@ Z 알고리즘을 정의합니다.
 
 # 테스트 문제
 - [LC Z Algorithm](https://judge.yosupo.jp/problem/zalgorithm)
+- [BOJ 13713 문자열과 쿼리](https://www.acmicpc.net/problem/13713)
 
 아래는 LC Z Algorithm에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/85457)
 
