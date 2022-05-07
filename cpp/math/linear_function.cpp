@@ -1,5 +1,4 @@
-template <typename T>
-struct Linear{
+TTT struct Linear{
 	T a, b; // ax+b
 	Linear(): a(0), b(0) {}
 	Linear(T B): a(0), b(B) {}

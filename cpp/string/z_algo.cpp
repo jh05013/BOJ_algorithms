@@ -19,8 +19,7 @@ vector<int> z_algo(string& s){
 	return z;
 }
 
-template <typename T>
-vector<int> z_algo(vector<T>& s){
+TTT vector<int> z_algo(vector<T>& s){
 	int n = s.size(), L=0, R=0;
 	vector<int> z(n); z[0] = n;
 	for(int i=1; i<n; i++){

@@ -1,4 +1,3 @@
-#define TTT template <typename T>
 #define FR friend
 const double pi = 3.14159265358979323846264338327950288;
 TTT int sgn(T x){return (T(0)<x) - (x<T(0));}

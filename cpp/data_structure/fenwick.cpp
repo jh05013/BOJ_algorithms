@@ -1,5 +1,4 @@
-template<typename T>
-struct Fenwick{
+TTT struct Fenwick{
 	int lsz = 0;
 	vector<T> arr, content;
 	Fenwick(int n){
@@ -19,6 +18,7 @@ struct Fenwick{
 		return res;
 	}
 	T sum(int i, int j){return sum(j)-(i? sum(i-1):0);}
+	// kth is 1-indexed
 	int kth(T k){
 		assert(arr.back() >= k);
 		int l = 0, r = sz(arr);
