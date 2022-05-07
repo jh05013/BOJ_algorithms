@@ -11,7 +11,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/math/harmonic_lemma.cp
   - 각 `(x, l, r)`은 `floor(n/i) = x`인 `i`의 범위가 구간 `[l, r]`이라는 의미입니다. `x`에 대한 내림차순으로 정렬되어 있으며, `[l, r]`이 비어있지 않으면서 `x >= 1`인 튜플만 vector에 들어있습니다.
 - 시간 복잡도: O(sqrt(n))
 
-`vector<tuple<T,T,T>> harmonic_ceil(T n)`은 위와 같으나, `ceil(n/i)`를 사용합니다.
+`vector<tuple<T,T,T>> harmonic_ceil(T n)`은 위와 같으나, `ceil(n/i)`를 사용하며, `x >= 2`인 튜플만 vector에 들어있습니다.
 
 # Two numbers version
 `vector<tuple<T,T,T,T>> harmonic2_floor(T n, T m)`
