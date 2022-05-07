@@ -1,6 +1,6 @@
 https://github.com/jh05013/BOJ_algorithms/blob/master/python/math/floor_sum.py
 
-Number-theoretic transform을 정의합니다.
+`floor((a*i+b)/m)`의 합을 빠르게 구합니다.
 
 # Floor Sum
 `floor_sum(n, m, a, b)`
