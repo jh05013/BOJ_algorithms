@@ -22,7 +22,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/data_structure/range_s
 - [LC Static Range Sum](https://judge.yosupo.jp/problem/static_range_sum)
 - [BOJ 16139 인간-컴퓨터 상호작용](https://www.acmicpc.net/problem/16139)
 
-다음은 LC Point Add Range Sum에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/104681)
+다음은 LC Static Range Sum에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/104681)
 ```cpp
 int main(){OJize();
 	int n, Q; cin>>n>>Q;

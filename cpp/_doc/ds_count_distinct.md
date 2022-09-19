@@ -18,7 +18,8 @@ TODO
 # 테스트 문제
 - [BOJ 14898 서로 다른 수와 쿼리 2](https://acmicpc.net/problem/14898)
 
-다음은 BOJ 14898에서의 사용 예시입니다. `CDSZ`와 `CDCNT`가 기본값일 때 메모리 135 MB, 시간 2.5초가 소요됩니다.
+`CDSZ`와 `CDCNT`가 기본값일 때 메모리 135 MB, 시간 2.5초가 소요됩니다.
+
 ```cpp
 int main(){OJize();
 	int n; cin>>n;
