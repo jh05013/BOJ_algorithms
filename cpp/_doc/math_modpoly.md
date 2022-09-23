@@ -14,18 +14,24 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/math/modint.cpp
 - `cin >>`으로 `P[0]`부터 `P[n-1]`까지 입력받을 수 있습니다.
 - `cout <<`으로 `P[0]`부터 `P[n-1]`까지 출력할 수 있습니다.
 
-## 기본 연산
-- TODO 덧셈, 뺄셈 넣기
-- 곱셈을 지원합니다. FFT를 사용하며 시간 복잡도는 `O(nlogn)`입니다.
+## 연산
+- 덧셈 `O(n)`
+- 뺄셈 `O(n)`
+- 곱셈 `O(nlogn)`
+- 나눗셈 `O(nlogn)`
+- 나머지 `O(nlogn)`
+- `inv`: 1/P `O(nlogn)`
+- `derivative`: P' `O(n)`
+- `integral`: ∫P `O(nlogMOD)`
+- `log`: logP `O(n(logMOD + logn))`
+- `exp`: e^P `O(n(logMOD + logn))`
+- `multieval`: multipoint evaluation `O(nlog^2n)`
 
 # 테스트 문제
-[LC Convolution](https://judge.yosupo.jp/problem/convolution_mod) ([채점 결과](https://judge.yosupo.jp/submission/104699))
-```cpp
-int main(){
-	ll n; cin>>n;
-	ll ans = 0;
-	for(auto [x, l, r]: harmonic_ceil(n)) ans+= x*(r-l+1);
-	cout << ans+1;
-}
-```
-
+- [LC Convolution](https://judge.yosupo.jp/problem/convolution_mod) ([채점 결과](https://judge.yosupo.jp/submission/104699))
+- [LC Inv of Formal Power Series](https://judge.yosupo.jp/problem/inv_of_formal_power_series) ([채점 결과](https://judge.yosupo.jp/submission/105294))
+- [LC Division of Polynomials)(https://judge.yosupo.jp/problem/division_of_polynomials) ([채점 결과](https://judge.yosupo.jp/submission/105295))
+- [LC Log of Formal Power Series](https://judge.yosupo.jp/problem/log_of_formal_power_series) ([채점 결과](https://judge.yosupo.jp/submission/105546))
+- [LC Exp of Formal Power Series](https://judge.yosupo.jp/problem/exp_of_formal_power_series) ([채점 결과](https://judge.yosupo.jp/submission/105552))
+- [LC Multipoint Evaluation](https://judge.yosupo.jp/problem/multipoint_evaluation) ([채점 결과](https://judge.yosupo.jp/submission/105448))
+- [BOJ 18168 Game With Polynomials 2](https://www.acmicpc.net/problem/18168)

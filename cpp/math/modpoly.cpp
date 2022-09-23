@@ -46,12 +46,23 @@ struct modint{
 struct modpoly{
 	vector<modint> P;
 
-	//// INIT & basic
+	//// INIT & BASIC
 	modpoly(int n): P(n) {}
 	modpoly(vector<modint> A): P(A) {}
 	modint& operator[](int i){return P[i];}
 	int size(){return sz(P);}
+	bool empty(){return P.empty();}
+	void normalize(){while(!empty() && P.back() == (modint)0) P.pop_back();}
+	
+	//// TRIVIAL OPS
 	void resize(int n){P.resize(n);}
+	modpoly resized(int n){
+		modpoly Q(n);
+		for(int i=0; i<min(n, size()); i++) Q[i] = P[i];
+		return Q;
+	}
+	void push_back(modint x){P.push_back(x);}
+	void reverse(){std::reverse(P.begin(), P.end());}
 
 	//// IO
 	friend istream& operator>>(istream &is, modpoly &p){
@@ -61,6 +72,36 @@ struct modpoly{
 	friend ostream& operator<<(ostream &os, const modpoly &p){
 		for(modint x:p.P) os<<x<<' ';
 		return os;
+	}
+
+	//// PLUS, MINUS
+	modpoly operator-() const {
+		modpoly M(P); for(int i=0; i<M.size(); i++) M[i] = -M[i];
+		return M;
+	}
+	modpoly& operator+=(modpoly q){
+		if(size() < q.size()) resize(q.size());
+		for(int i=0; i<q.size(); i++) P[i]+= q[i];
+		return *this;
+	}
+	friend modpoly operator+(modpoly p, modpoly q){return p+= q;}
+	modpoly& operator-=(modpoly q){
+		if(size() < q.size()) resize(q.size());
+		for(int i=0; i<q.size(); i++) P[i]-= q[i];
+		return *this;
+	}
+	friend modpoly operator-(modpoly p, modpoly q){return p-= q;}
+
+	//// CALCULUS
+	modpoly derivative(){
+		modpoly q(max(0, size()-1));
+		for(int i=1; i<size(); i++) q[i-1] = (modint)i * P[i];
+		return q;
+	}
+	modpoly integral(){
+		modpoly q(size()+1);
+		for(int i=0; i<size(); i++) q[i+1] = P[i] / (modint)(i+1);
+		return q;
 	}
 
 	//// FFT
@@ -86,7 +127,6 @@ struct modpoly{
 		modint NINV = ipow((modint)n, MOD-2);
 		if(inv) for(int i=0; i<n; i++) P[i]*= NINV;
 	}
-
 	modpoly& operator*=(modpoly q){
 		int n, xy = size()+q.size();
 		for(n=1; n<xy; n<<= 1);
@@ -97,4 +137,59 @@ struct modpoly{
 		return *this;
 	}
 	friend modpoly operator*(modpoly p, modpoly q){return p*= q;}
+
+	//// DIVISION
+	modpoly inv(int d){
+		assert(P[0] != (modint)0);
+		modpoly I(1); I[0] = modint(1) / P[0];
+		for(int n=1; n<d; n*= 2){
+			modpoly f = resized(2*n), g = I.resized(2*n);
+			f.fft(0), g.fft(0); for(int i=0; i<2*n; i++) f[i]*= g[i];
+			f.fft(1); for(int i=0; i<n; i++) f[i] = 0;
+			f.fft(0); for(int i=0; i<2*n; i++) f[i]*= g[i];
+			f.fft(1); for(int i=n; i<2*n; i++) I.push_back(-f[i]);
+		}
+		I.resize(d); return I;
+	}
+	modpoly& operator/=(modpoly q){
+		reverse(), q.reverse();
+		int m = max(0, size()-q.size()+1);
+		(*this)*= q.inv(m);
+		resize(m), reverse(); return *this;
+	}
+	friend modpoly operator/(modpoly p, modpoly q){return p/= q;}
+	modpoly& operator%=(modpoly q){
+		modpoly d = (*this)/q; (*this)-= d*q;
+		resize(q.size()-1); return *this;
+	}
+	friend modpoly operator%(modpoly p, modpoly q){return p%= q;}
+
+	//// LOG, EXP, (TODO) SQRT, (TODO) POW
+	modpoly log(int d){return (derivative() * inv(d)).resized(d-1).integral();}
+	modpoly exp(int d){
+		assert(!empty() && P[0] == (modint)0);
+		modpoly Q(1); Q[0] = 1;
+		while(Q.size() < d){
+			int n = Q.size();
+			modpoly M = resized(n*2) - Q.log(n*2); M[0]+= (modint)1;
+			Q = M*Q; Q.resize(n*2);
+		}
+		Q.resize(size()); return Q;
+	}
+
+	//// EVAL
+	vector<modint> multieval(vector<modint> xs){
+		vector<modpoly> tree;
+		for(modint x: xs) tree.push_back(modpoly({-x, 1}));
+		int i, ti;
+		for(i=0; i+1<sz(tree); i+= 2)
+			tree.push_back(tree[i] * tree[i+1]);
+		tree[i] = *this % tree[i];
+		for(ti=i, i--; i>0; i-= 2, ti--){
+			tree[i] = tree[ti] % tree[i];
+			tree[i-1] = tree[ti] % tree[i-1];
+		}
+		for(int j=0; j<sz(xs); j++) xs[j] = tree[j][0];
+		return xs;
+	}
 };
