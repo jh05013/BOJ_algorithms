@@ -1,6 +1,7 @@
 const int CDSZ = 400;
 const int CDCNT = 2500;
-TTT struct CountDistinct{
+template <typename T>
+struct CountDistinct{
 	int n;
 	vector<int> prv, nxt;
 	int bsum[CDCNT][CDCNT];

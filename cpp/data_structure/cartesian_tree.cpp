@@ -1,4 +1,4 @@
-template<typename T>
+template <typename T>
 struct CartesianTree{
 	int n, root = -1;
 	vector<int> P, L, R;

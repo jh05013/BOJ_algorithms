@@ -1,4 +1,5 @@
-TTT struct Fenwick{
+template <typename T>
+struct Fenwick{
 	int lsz = 0;
 	vector<T> arr, content;
 	Fenwick(int n){
