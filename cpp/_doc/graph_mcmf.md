@@ -11,6 +11,7 @@ MCMF입니다.
 - `connect(s, e, cap, cost)`는 `s`에서 `e`로 가는 용량 `cap`, 비용 `cost`의 간선을 긋습니다.
   - `s != e`여야 합니다. 안 그러면 RTE입니다.
   - 추가로, 그 간선을 찾는 데 사용되는 `EdgeIndex ei`를 반환합니다. `G[ei]`를 사용하면 됩니다. `G[ei].source, G[ei].target, G[ei].cost, G[ei].orig`는 각각 `s, e, cost, cap`입니다.
+- **그래프에 음수 사이클이 있으면 UB입니다.**
 
 # 유량 구하기
 - `send(s, t)`는 `s`에서 `t`로 가는 최소 비용 최대 유량을 찾아 `{유량, 비용}` pair를 반환합니다.
