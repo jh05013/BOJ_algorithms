@@ -21,27 +21,19 @@ MCMF입니다.
 # 테스트 문제
 - [BOJ 11408 열혈강호 5](https://acmicpc.net/problem/11408) bipartite matching
 - [BOJ 11409 열혈강호 6](https://acmicpc.net/problem/11409) bipartite matching
+- [LibreOJ 102 最小费用流](https://loj.ac/p/102)
 
-다음은 BOJ 11408에서의 사용 예시입니다. [채점 결과](https://www.acmicpc.net/source/share/33553b9e8e4946e2be56f56c98d443ef)
+다음은 LibreOJ 102에서의 사용 예시입니다. [채점 결과](https://loj.ac/s/1597372)
 
 ```cpp
 int main(){OJize();
-	int nl,nr; cin>>nl>>nr;
-	MCMF<int> G(nl+nr+2, 0x3f3f3f3f);
-	// 0 source
-	// 1 -- nl left
-	// nl+1 -- nl+nr right
-	// nl+nr+1 sink
-	for(int i=0; i<nl; i++) G.connect(0, i+1, 1, 0);
-	for(int i=0; i<nr; i++) G.connect(nl+1+i, nl+nr+1, 1, 0);
-	for(int i=0; i<nl; i++){
-		int m; cin>>m;
-		while(m--){
-			int idx,cost; cin>>idx>>cost;
-			G.connect(i+1, nl+idx, 1, cost);
-		}
+	int n, m; cin>>n>>m;
+	MCMF<ll> G(n+1, 0x3f3f3f3f4f3f3f3f);
+	for(int i=0; i<m; i++){
+		int a, b; ll cap, cost; cin>>a>>b>>cap>>cost;
+		G.connect(a, b, cap, cost);
 	}
-	auto [F, C] = G.send(0, nl+nr+1);
-	cout << F << '\n' << C;
+	auto [F, C] = G.send(1, n);
+	cout << F << ' ' << C;
 }
 ```

@@ -1,28 +1,25 @@
-https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/math/floor_sum.cpp
+https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/math/euler_phi.cpp
 
-# Floor Sum
-`T floor_sum(T n, T m, T a, T b)`
+# Euler Phi
+`T euler_phi(T n)`
 - 인자
-  - `n`은 0 이상의 정수, `m`은 양의 정수, `a`, `b`는 0 이상의 정수입니다.
-  - ⚠️ `a`, `b`가 음수일 때의 동작은 테스트해보지 않았습니다.
+  - `n`은 양의 정수입니다.
 - 동작
-  - `i = 0, ..., n-1`에 대해 `floor((ai+b)/m)`의 합을 반환합니다.
-- 시간 복잡도: O(logm)
+  - `ϕ(n)`, 즉 `n`보다 작으면서 `n`과 서로소인 양의 정수의 개수를 반환합니다.
+- 시간 복잡도: O(√n)
 
 # 테스트 문제
-- [LC Sum of Floor of Linear](https://judge.yosupo.jp/problem/sum_of_floor_of_linear)
-- [AtCoder practice2-C Floor Sum](https://atcoder.jp/contests/practice2/tasks/practice2_c)
-- [BOJ 8483 Earthquake](https://www.acmicpc.net/problem/8483)
-- [BOJ 16998 It's a Mod, Mod, Mod, Mod World](https://www.acmicpc.net/problem/16998)
+- [BOJ 11689 GCD(n, k) = 1](https://www.acmicpc.net/problem/11689)
+- [BOJ 4355 서로소](https://www.acmicpc.net/problem/4355)
 
-다음은 LC Sum of Floor of Linear에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/107083)
+다음은 BOJ 11689에서의 사용 예시입니다.
 
 ```cpp
 int main(){OJize();
-	int T; cin>>T;
-	while(T--){
-		ll n,m,a,b; cin>>n>>m>>a>>b;
-		cout << floor_sum(n,m,a,b) << '\n';
+	while(1){
+		int n; cin>>n;
+		if(n == 0) break;
+		else cout << euler_phi(n) << '\n';
 	}
 }
 ```
