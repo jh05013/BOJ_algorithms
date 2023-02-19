@@ -5,6 +5,6 @@ T floor_sum(T n, T m, T a, T b){
 	if(a >= m || a < 0) ans+= (n-1)*n/2 * (a/m), a%= m;
 	if(b >= m || b < 0) ans+= n * (b/m), b%= m;
 	if(a == 0) return ans;
-	ll y = (a*n+b)/m, z = (a*n+b)%m;
+	T y = (a*n+b)/m, z = (a*n+b)%m;
 	return ans + floor_sum(y, a, m, z);
 }

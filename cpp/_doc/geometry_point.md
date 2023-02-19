@@ -2,6 +2,10 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/geometry/point.cpp
 
 2차원 점 `Pnt<T>`를 정의합니다.
 
+# 각도 변환
+- `to_radian(deg)`는 `deg`도를 라디안으로 변환합니다.
+- `to_degree(rad)`는 `rad` 라디안을 도로 변환합니다.
+
 # 필드
 - `T x` - x 좌표
 - `T y` - y 좌표
@@ -43,10 +47,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/geometry/point.cpp
 - TODO theta rotation
 
 # 테스트 문제
-[BOJ 11758 CCW](https://acmicpc.net/problem/11758)
-```cpp
-int main(){
-	Pnt<ll> a, b, c; cin>>a>>b>>c;
-	cout << ccw(a,b,c);
-}
-```
+- [BOJ 11758 CCW](https://acmicpc.net/problem/11758) `ccw`
+- [eolymp 1614 Angles of triangle](https://www.eolymp.com/en/problems/1614) `angle`
+- [eolymp 2129 Polar angle of a point](https://www.eolymp.com/en/problems/2129) `angle_ccw`
+- [eolymp 5190 Сonstruct a triangle with two sides and the included angle](https://www.eolymp.com/en/problems/5190) `rot`

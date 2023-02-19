@@ -1,11 +1,11 @@
-template <typename T>
-T euler_phi(T n){
+template<typename T>
+T phi(T n){
 	if(n <= 1) return 0;
-	ll ans = n;
-	for(int d=2; d*d<=n; d++) if(n%d == 0){
-		ans = ans*(d-1)/d;
-		while(n%d == 0) n/= d;
+	T phi = n;
+	for(T p=2; p*p<=n; p++) if(n%p == 0){
+		phi = phi/p*(p-1);
+		while(n%p == 0) n/= p;
 	}
-	if(n > 1) ans = ans*(n-1)/n;
-	return (T)ans;
+	if(n > 1) phi = phi/n*(n-1);
+	return phi;
 }

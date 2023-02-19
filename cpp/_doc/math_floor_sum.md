@@ -14,6 +14,7 @@ https://github.com/jh05013/BOJ_algorithms/blob/master/cpp/math/floor_sum.cpp
 - [AtCoder practice2-C Floor Sum](https://atcoder.jp/contests/practice2/tasks/practice2_c)
 - [BOJ 8483 Earthquake](https://www.acmicpc.net/problem/8483)
 - [BOJ 16998 It's a Mod, Mod, Mod, Mod World](https://www.acmicpc.net/problem/16998)
+- [BOJ 8870 Zadanie próbne](https://www.acmicpc.net/problem/8870)
 
 다음은 LC Sum of Floor of Linear에서의 사용 예시입니다. [채점 결과](https://judge.yosupo.jp/submission/107083)
 
